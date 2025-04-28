@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    display: flex;
+    gap: 10vh;
+    background-color: rgb(255, 246, 193);
+    width: calc(100vw-17px);
+    height: 10vh;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+}
+
+#main {
+    display: flex;
+    background-color: rgb(255, 246, 193);
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 25vw;
+    height: 65vh;
+    gap: 2vh;
+    align-items: center;
+    justify-content: center;
+}
+
+
+input {
+    width: 75%;
+}
+
+label {
+    font-size: 16pt;
+}
+
+button {
+    width: 50%;
+    height: 5%;
+    border: 0;
+    border-radius: 10px;
+    background-color: rgb(176, 176, 176);
+}
