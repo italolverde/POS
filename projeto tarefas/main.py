@@ -1,6 +1,7 @@
 from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI, HTTPException, Form, Request
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from models import Tarefa
 from typing import List
 
@@ -9,15 +10,17 @@ from typing import List
 app = FastAPI()
 
 templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 tarefas: List[Tarefa] = []
 id = 0
 
 #USAREMOS JQUERY E AJAX
 
-@app.get("/tarefas/",response_model=List[Tarefa])
-def listar_tarefas():
-    return tarefas
+@app.get("/tarefas/",response_class=HTMLResponse)
+def listar_tarefas(request: Request):
+    return templates.TemplateResponse("listartarefa.html", {"request": request, "tarefas": tarefas})
 
 @app.get('/cadastro_tarefa', response_class=HTMLResponse)    
 def form_tarefa(request: Request):

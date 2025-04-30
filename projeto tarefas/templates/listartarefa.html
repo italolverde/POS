@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="listartarefa.css">
+    <link rel="stylesheet" href="../static/listartarefa.css">
 </head>
 <body>
     
@@ -12,16 +12,21 @@
         <a href="/cadastro_tarefa">Cadastrar Tarefa</a>
         <a>Listar Tarefas</a>                    
     </nav>
-
+    
     <div id="main">
+        {% for tarefa in tarefas %}
+            <div class="tarefa">
+                <label for="tarefa">Titulo: {{ tarefa.titulo }}</label>
+                <p class="descricao">Descrição: {{ tarefa.descricao }}</p>
+                <span>Status: {% if tarefa.concluido %} Concluído {% else %} Pendente {% endif %} </span>
+                <button id="button-delete" data-id="{{tarefa.id}}">Deletar</button>
+            </div>
+        {% else %}
+            <h1>Nenhuma tarefa encontrada</h1>
+        {% endfor %}
 
-        <div class="tarefa">
-            <label for="tarefa">Tarefa 1</label>
-            <p class="descricao">descrição da tarefa</p>
-            <span>Concluído</span>
-        </div>
 
-        <div class="tarefa">
+        <!-- <div class="tarefa">
             <label for="tarefa">Tarefa 2</label>
             <p class="descricao">descrição da tarefa</p>
             <span>Pendente</span>
@@ -32,9 +37,30 @@
             <label for="tarefa">Tarefa 3</label>
             <p class="descricao">descrição da tarefa</p>
             <span>Concluído</span>
-        </div>
+        </div> -->
 
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#button-delete').click(function() {
+        const id = $(this).data('id');
+
+        $.ajax({
+            url: `/tarefas/${id}`,
+            type: 'DELETE',
+            success: function() {
+            alert("Tarefa deletada!");
+            location.reload(); // recarrega a página
+            },
+            error: function() {
+            alert("Erro ao deletar tarefa.");
+            }
+        });
+        });
+    });
+    </script>
 
 </body>
 </html>

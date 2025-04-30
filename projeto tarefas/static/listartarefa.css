@@ -31,3 +31,9 @@ nav {
     font-size: 16pt;
     width: 25vw;
 }
+
+#button-delete {
+    width: 25%;
+    background-color: rgb(163, 4, 4);
+    border: 2px black solid;
+}
