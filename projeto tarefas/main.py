@@ -1,10 +1,14 @@
-from fastapi import FastAPI, HTTPException, Form
+from fastapi.templating import Jinja2Templates
+from fastapi import FastAPI, HTTPException, Form, Request
+from fastapi.responses import HTMLResponse
 from models import Tarefa
 from typing import List
 
-#uvicorn main:app RODA O APP
+#uvicorn main:app RODA O APP   
 
 app = FastAPI()
+
+templates = Jinja2Templates(directory="templates")
 
 tarefas: List[Tarefa] = []
 id = 0
@@ -15,14 +19,18 @@ id = 0
 def listar_tarefas():
     return tarefas
 
+@app.get('/cadastro_tarefa', response_class=HTMLResponse)    
+def form_tarefa(request: Request):
+    return templates.TemplateResponse("cadastrar_tarefa.html", {"request": request})
+
 @app.post("/tarefas/",response_model=Tarefa)
 def criar_tarefa(titulo: str = Form(...), descricao: str = Form(...)):
     
-    id_tarefa = id
-    id += 1
-    nova_tarefa = Tarefa(id=id_novo, titulo=titulo, descricao=descricao, concluido=False)
+    global id
+    nova_tarefa = Tarefa(id=id, titulo=titulo, descricao=descricao, concluido=False)
     tarefas.append(nova_tarefa)
-    return tarefa
+    id += 1
+    return nova_tarefa
 
 @app.delete("/tarefas/{tarefa_id}",response_model=Tarefa)
 def excluir_tarefa(tarefa_id:int):

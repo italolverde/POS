@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="cadastrar_tarefa.css">
+</head>
+<body>
+    
+    <nav>
+        <a>Cadastrar Tarefa</a>
+        <a href="/tarefas">Listar Tarefas</a>                    
+    </nav>
+
+    <form id="form-tarefa" action="/tarefas/" method="post">
+        <div id="main">    
+            
+            <label for="titulo">Titulo da Tarefa:</label>
+            <input type="text" name="titulo">
+            
+            
+            <label for="descricao">Descrição:</label>
+            <input type="text" name="descricao">
+            
+            <button type="submit">Cadastrar tarefa</button>
+
+        </div>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+  $('#form-tarefa').on('submit', function(e) {
+    e.preventDefault(); // impede o reload da página
+
+    $.ajax({
+      url: '/tarefas',  // rota no Flask
+      method: 'POST',
+      data: $(this).serialize(), // pega os dados do form.....
+      success: function(response) {
+        alert('Tarefa adicionada!');
+        // você pode também atualizar a lista de tarefas na tela aqui
+      },
+      error: function() {
+        alert('Erro ao adicionar tarefa');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
