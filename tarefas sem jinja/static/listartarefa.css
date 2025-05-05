@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    display: flex;
+    gap: 10vh;
+    background-color: rgb(255, 246, 193);
+    width: calc(100vw-17px);
+    height: 10vh;
+    justify-content: center;
+    align-items: center;
+}
+
+#main {
+    display: flex;
+    gap: 10vh;
+    background-color: rgb(253, 255, 255);
+    width: 100%;
+    height: calc(90vh);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.tarefa {
+    border: 2px rgb(66, 0, 0) solid;
+    border-radius: 5px;
+    background-color: rgb(255, 246, 193);
+    font-size: 16pt;
+    width: 25vw;
+}

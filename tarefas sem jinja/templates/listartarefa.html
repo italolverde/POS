@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+     <link rel="stylesheet" href="listartarefa.css">
+ </head>
+ <body>
+     
+     <nav>
+         <a href="./cadastrar_tarefa.html">Cadastrar Tarefa</a>
+         <a>Listar Tarefas</a>                    
+     </nav>
+ 
+     <div id="main">
+ 
+         <div class="tarefa">
+             <label for="tarefa">Tarefa 1</label>
+             <p class="descricao">descrição da tarefa</p>
+             <span>Concluído</span>
+         </div>
+ 
+     </div>
+ 
+     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+     <script>
+        function atualizarTabela() {
+            $.ajax({
+                url:"http://127.0.0.1:8000/tarefas",
+                method: "GET",
+                dataType: "json",
+                success: function(tarefas) {
+                    const $tbody = $("#main"); 
+                    $tbody.empty();   
+                    
+                    tarefas.forEach(tarefa => {
+                        $tbody.append(
+                            `
+                            <tr>
+                                <td>${tarefa.id}</td>
+                                <td>${tarefa.titulo}</td>
+                                <td>${tarefa.descricao}</td>
+                                <td>${tarefa.concluido}</td>
+                            </tr>
+                            `
+                        )
+                    })
+                },
+                error: function(err){
+                    console.error("erro:",err);
+                }
+            });
+
+        }
+
+        $(document).ready(function(){
+            setInterval(atualizarTabela,1000);
+        })
+     </script>
+ </body>
+ </html>
